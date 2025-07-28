@@ -1,6 +1,6 @@
 # Lemur
 
-A simple Go program to display a directory tree structure.
+A simple program to display a directory tree structure.
 
 ## Installation
 
