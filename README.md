@@ -30,4 +30,4 @@ Run `make clean` to delete the compiled binary from the project directory.
 
 ## License
 
-MIT
+GPL-3.0
