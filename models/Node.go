@@ -51,7 +51,7 @@ func (this *Node) Stringfy(prefix string, includeName bool, last bool, level []b
 }
 
 func (this *Node) ToString() string {
-	return this.Stringfy("\t", true, false, []bool{})
+	return this.Stringfy("  ", true, false, []bool{})
 }
 
 func NewTree(path string) (Node, error) {
