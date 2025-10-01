@@ -1,6 +1,6 @@
 # Lemur
 
-A simple program to display a directory tree structure.
+A simple program to display a directory tree structure or parse a list of paths.
 
 ## Installation
 
@@ -10,24 +10,18 @@ A simple program to display a directory tree structure.
 ## Usage
 
 ```bash
-lemur <directory_path>
-```
+# Show version info
+lemur
+lemur -v
 
-Prints a tree representation of the specified directory.
+# Show help panel
+lemur -h
 
-## Uninstallation
+# Read paths from stdin
+cat paths.txt | lemur stdout
 
-Run `make uninstall` to remove the binary.
+# Read paths from a text file
+lemur -f paths.txt
 
-## Cleanup
-
-Run `make clean` to delete the compiled binary from the project directory.
-
-## Requirements
-
-- Go 1.16+
-- Make
-
-## License
-
-GPL-3.0
+# Read a filesystem directory
+lemur -p <directory_path>
