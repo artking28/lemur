@@ -24,7 +24,7 @@ all: install
 
 install:
 	$(ECHO) "Installing lemur..."
-	go build -o $(EXE) cmd/main.go
+	go build -o $(EXE) cmd/main.go cmd/actions.go
 	$(MKDIR)
 	$(COPY)
 	$(if $(CHMOD),$(CHMOD))

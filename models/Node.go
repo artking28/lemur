@@ -54,7 +54,44 @@ func (this *Node) ToString() string {
 	return this.Stringfy("  ", true, false, []bool{})
 }
 
-func NewTree(path string) (Node, error) {
+func NewTreeList(name string, list string) (Node, error) {
+	
+	lines := strings.Split(list, "\n")
+	root := Node{Name: name} // raiz fictícia
+
+	for _, line := range lines {
+		if line == "" {
+			continue
+		}
+		parts := strings.Split(line, string(os.PathSeparator))
+		current := &root
+		for i, part := range parts {
+			isFile := i == len(parts)-1
+			if isFile {
+				current.Files = append(current.Files, Node{Name: part})
+				break
+			}
+			// procura se já existe a pasta
+			found := false
+			for j := range current.Dirs {
+				if current.Dirs[j].Name == part {
+					current = &current.Dirs[j]
+					found = true
+					break
+				}
+			}
+			if !found {
+				newDir := Node{Name: part}
+				current.Dirs = append(current.Dirs, newDir)
+				current = &current.Dirs[len(current.Dirs)-1]
+			}
+		}
+	}
+
+	return root, nil
+}
+
+func NewTreePath(path string) (Node, error) {
 	info, err := os.Stat(path)
 	if err != nil {
 		return Node{}, err
@@ -85,7 +122,7 @@ func NewTree(path string) (Node, error) {
 		
 		wg.Add(1)
 		go func() {
-			childNode, e := NewTree(childPath)
+			childNode, e := NewTreePath(childPath)
 			mu.Lock()
 			defer wg.Done()
 			defer mu.Unlock()

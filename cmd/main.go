@@ -1,21 +1,34 @@
 package main
 
 import (
-	"fmt"
 	"os"
-	"github.com/artking28/lemur/models"
 )
 
 func main() {
-	if len(os.Args) != 2 {
-		panic("invalid args. Please, enter a folder path")
+	if os.Args[0] != "lemur" {
+		panic("Invalid executable name, its should be lemur.")
 	}
-
-	input := os.Args[1]
-	root, err := models.NewTree(input)
-	if err != nil {
-		panic(err)
+	
+	switch len(os.Args) {
+		case 1:
+			VersionPanel();
+			
+		case 2:
+			switch os.Args[1] {
+				case "-v": VersionPanel();
+				case "-h": HelpPanel();
+				case "stdout": ReadPipe(); 
+				default: Fail(nil);
+			}
+			
+		case 3: 
+			switch os.Args[1] {
+				case "-f": ReadFile(os.Args[2]);
+				case "-p": ReadPath(os.Args[2]);
+				default: Fail(nil);
+			}
+		
+		default:
+			Fail(nil)
 	}
-
-	fmt.Printf("%v\n", root.ToString())
 }
